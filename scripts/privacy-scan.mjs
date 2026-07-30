@@ -5,6 +5,7 @@ const root = process.cwd();
 const targets = [
   "src",
   "public",
+  "docs",
   "scripts",
   "README.md",
   "CONTENT_CHECKLIST.md",

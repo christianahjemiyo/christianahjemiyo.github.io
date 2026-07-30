@@ -1,40 +1,30 @@
-# Christianah O. Jemiyo Portfolio
+# Christianah O. Jemiyo Portfolio Website
 
-This repository contains the local source for a privacy-safe academic and technical portfolio website for Christianah O. Jemiyo.
+This repository hosts the source code for Christianah O. Jemiyo's academic and technical portfolio website.
 
-## Technology Stack
+Live site: https://christianahjemiyo.github.io
+
+## About
+
+The website presents a public, privacy-safe professional profile for Christianah O. Jemiyo, including research interests, selected scholarly work, public technical projects, education, professional experience, service, and skills.
+
+The content is written for academic collaborators, research institutions, data science and artificial intelligence professionals, public health researchers, students, and professional contacts.
+
+## Technology
 
 - Astro with TypeScript
-- Modern CSS with light and dark themes
-- Minimal client-side JavaScript for the theme toggle, mobile navigation, and project filters
-- GitHub Actions workflow prepared for GitHub Pages
-- No analytics, trackers, advertising scripts, contact form, maps, or third-party font calls
+- Modern CSS with responsive light and dark themes
+- Minimal client-side JavaScript for navigation, theme switching, and project filtering
+- GitHub Actions deployment to GitHub Pages
+- System fonts and local assets
 
-## Local Setup
+## Privacy
 
-```bash
-npm install
-npm run dev
-```
+This site is intentionally privacy-conscious. It does not include personal email addresses, telephone numbers, residential addresses, contact forms, maps, analytics, advertising scripts, private datasets, original resume files, or credentials.
 
-Use `npm.cmd` instead of `npm` on Windows PowerShell if script execution policy blocks `npm.ps1`.
+Public contact is limited to verified professional platforms.
 
-## Development Commands
-
-```bash
-npm run dev
-npm run typecheck
-npm run lint
-npm run format
-npm run test
-npm run build
-npm run validate:html
-npm run check:links
-npm run check:privacy
-npm run check:all
-```
-
-## Folder Structure
+## Repository Structure
 
 ```text
 src/components/      Reusable Astro components
@@ -45,94 +35,36 @@ src/styles/          Global design system CSS
 src/utils/           Small helper functions
 scripts/             Local content, link, and privacy checks
 public/              Static public assets
+docs/                Maintainer documentation
 ```
 
-## Content Architecture
-
-Editable public content is centralized in `src/data`. Do not add private contact fields, hidden résumé fields, restricted dataset details, or credentials to these files.
-
-To update professional information, edit the relevant file:
-
-- Profile and links: `src/data/profile.ts`
-- Research themes: `src/data/research.ts`
-- Projects: `src/data/projects.ts`
-- Publications and scholarly records: `src/data/publications.ts`
-- Experience: `src/data/experience.ts`
-- Education: `src/data/education.ts`
-- Skills: `src/data/skills.ts`
-- Service and memberships: `src/data/service.ts`
-
-## Adding a Project
-
-Add a new item to `src/data/projects.ts` only when the repository is public and the README or documentation supports an accurate description. Do not copy datasets, private screenshots, unpublished results, or restricted details.
-
-## Adding a Publication
-
-Add a publication to `src/data/publications.ts` only after verifying title, author order, venue, year, DOI or permanent URL, and publication type from an authoritative public source where possible.
-
-To associate a preprint with a later publication, add the preprint as a separate `preprint` entry and use `associatedWith` to name the primary record. Do not count the preprint and later publication as unrelated works.
-
-## Adding Presentations and Academic Research Projects
-
-Use the `presentation` category for conference presentations, posters, institutional communications, and similar outputs. Use the `thesis` category for theses and academic research projects. If the status is uncertain, document it in `CONTENT_CHECKLIST.md` instead of presenting it as verified.
-
-## Volunteer Service
-
-Add service items to `src/data/service.ts` only when the role, organization, and year are approved for public display.
-
-## Profile Photograph
-
-The profile photograph should be retrieved from the public GitHub profile or official GitHub avatar URL for `christianahjemiyo`, optimized locally, and saved as:
-
-```text
-src/assets/profile-photo.jpg
-```
-
-Do not hotlink the avatar from GitHub. Strip metadata before committing the optimized image.
-
-## Redacted Résumé
-
-No résumé PDF is included. A redacted public résumé may be added later only after explicit approval at:
-
-```text
-public/documents/Christianah-Jemiyo-Resume.pdf
-```
-
-The current résumé page displays: Public résumé available upon request.
-
-## Link and Privacy Checks
-
-Run:
+## Local Development
 
 ```bash
-npm run build
-npm run check:links
-npm run check:privacy
+npm install
+npm run dev
 ```
 
-The privacy scan checks source files and generated output for email addresses, North American telephone number patterns, street-address patterns, apartment references, geographic coordinates, private key blocks, credential assignments, contact forms, telephone links, and email links.
+On Windows PowerShell, use `npm.cmd` if script execution policy blocks `npm.ps1`.
 
-## Themes
+## Quality Checks
 
-The site supports light and dark themes through CSS custom properties. The theme toggle stores the visitor's local preference in browser storage and does not send data anywhere.
+```bash
+npm run check:all
+```
 
-## GitHub Pages Deployment
+The full check runs linting, formatting verification, content checks, Astro type checking, production build, generated HTML validation, local link checks, and privacy scanning.
 
-The workflow in `.github/workflows/deploy.yml` follows the current Astro GitHub Pages pattern using `withastro/action` and `actions/deploy-pages`.
+## Deployment
 
-To publish later:
+The site is deployed to GitHub Pages through the workflow in `.github/workflows/deploy.yml`. Pushes to `main` trigger a production build and deployment through GitHub Actions.
 
-1. Create or connect the public repository `christianahjemiyo/christianahjemiyo.github.io`.
-2. Push the local `main` branch after approval.
-3. In GitHub repository settings, open Pages and set the source to GitHub Actions.
-4. Confirm the deployment workflow succeeds.
-
-Expected public URL after deployment:
+Expected public URL:
 
 ```text
 https://christianahjemiyo.github.io
 ```
 
-## Custom Domain Later
+## Maintenance
 
-A custom domain can be configured later by adding a public-safe `CNAME` file and configuring the domain in GitHub Pages settings. Do not add a custom domain until DNS ownership and privacy implications are reviewed.
+Maintainer guidance for content updates, publication verification, privacy checks, profile-photo handling, and future resume handling is documented in `docs/MAINTENANCE.md`.
