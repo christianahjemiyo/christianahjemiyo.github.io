@@ -1,0 +1,81 @@
+---
+import { navigation, profile } from "@data/profile";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const currentPath = Astro.url.pathname;
+const isCurrent = (href: string) => (href === "/" ? currentPath === "/" : currentPath.startsWith(href));
+---
+
+<header class="site-header">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="site-header__inner">
+    <a class="brand" href="/" aria-label={`${profile.displayName} home`}>
+      <span class="brand__mark" aria-hidden="true">CJ</span>
+      <span class="brand__name">{profile.displayName}</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <ul>
+        {
+          navigation.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <ThemeToggle />
+      <button
+        class="menu-button"
+        type="button"
+        data-menu-button
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav" data-mobile-nav aria-label="Mobile navigation" hidden>
+    <ul>
+      {
+        navigation.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script is:inline>
+  const menuButton = document.querySelector("[data-menu-button]");
+  const mobileNav = document.querySelector("[data-mobile-nav]");
+
+  menuButton?.addEventListener("click", () => {
+    const expanded = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!expanded));
+    menuButton.setAttribute("aria-label", expanded ? "Open navigation menu" : "Close navigation menu");
+    if (mobileNav) {
+      mobileNav.hidden = expanded;
+    }
+  });
+
+  mobileNav?.addEventListener("click", (event) => {
+    if (event.target instanceof HTMLAnchorElement && menuButton) {
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open navigation menu");
+      mobileNav.hidden = true;
+    }
+  });
+</script>

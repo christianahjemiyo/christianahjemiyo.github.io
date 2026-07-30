@@ -1,0 +1,22 @@
+---
+import { publicLinks } from "@data/profile";
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <p>© {new Date().getFullYear()} Christianah O. Jemiyo.</p>
+    <ul aria-label="Professional links">
+      {
+        publicLinks.map((link) => (
+          <li>
+            <a href={link.href} target="_blank" rel="noreferrer">
+              {link.label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="site-footer__meta">No analytics. No contact form. No tracking scripts.</p>
+  </div>
+</footer>

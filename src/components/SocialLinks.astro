@@ -1,0 +1,23 @@
+---
+import type { LinkItem } from "@data/types";
+
+type Props = {
+  links: LinkItem[];
+  compact?: boolean;
+};
+
+const { links, compact = false } = Astro.props;
+---
+
+<ul class:list={["social-links", compact && "social-links--compact"]}>
+  {
+    links.map((link) => (
+      <li>
+        <a href={link.href} target="_blank" rel="noreferrer">
+          {link.label}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

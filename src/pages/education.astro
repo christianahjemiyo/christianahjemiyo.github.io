@@ -1,0 +1,27 @@
+---
+import SectionHeading from "@components/SectionHeading.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { education } from "@data/education";
+---
+
+<BaseLayout title="Education" description="Verified education entries for Christianah O. Jemiyo.">
+  <section class="section">
+    <SectionHeading eyebrow="Education" title="Academic background" />
+    <div class="card-grid">
+      {
+        education.map((entry) => (
+          <article class="info-card">
+            <h2>{entry.degree}</h2>
+            <p>
+              <strong>{entry.institution}</strong>
+              {entry.place && <> · {entry.place}</>}
+            </p>
+            {entry.started && <p>Started: {entry.started}</p>}
+            {entry.completed && <p>Completed: {entry.completed}</p>}
+            {entry.status && <p>Status: {entry.status}</p>}
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,51 @@
+---
+import ProfilePhoto from "@components/ProfilePhoto.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { profile, researchInterests } from "@data/profile";
+---
+
+<BaseLayout
+  title="About"
+  description="Professional biography, research focus, mentoring work, and academic background for Christianah O. Jemiyo."
+>
+  <section class="section">
+    <SectionHeading
+      eyebrow="About"
+      title="Applied statistics, AI, and health-data research"
+      text="A concise professional biography based only on approved public information."
+    />
+    <div class="split-layout">
+      <ProfilePhoto size="about" />
+      <div class="text-stack">
+        <p>{profile.biography}</p>
+        <p>
+          My methodological experience includes logistic regression, Cox proportional hazards
+          models, survival analysis, generalized linear models, survey-weighted statistical
+          methods, Poisson models, zero-inflated models, Elastic Net, classification, clustering,
+          regression, and predictive modelling.
+        </p>
+        <p>
+          My research interests include health disparities, chronic disease modelling, infectious
+          disease modelling, reproducible research, ethical data handling, and practical training
+          for researchers working with data-cleaning and modelling workflows.
+        </p>
+        <p>
+          I have trained researchers in R programming, survival modelling, and data-cleaning
+          workflows, and I have supported researcher onboarding and reproducible research
+          practices in interdisciplinary settings.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--compact" aria-labelledby="about-interests">
+    <div class="section-heading">
+      <p class="eyebrow">Research interests</p>
+      <h1 id="about-interests">Areas of focus</h1>
+    </div>
+    <ul class="tag-list">
+      {researchInterests.map((interest) => <li>{interest}</li>)}
+    </ul>
+  </section>
+</BaseLayout>

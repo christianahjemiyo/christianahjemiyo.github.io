@@ -1,0 +1,97 @@
+---
+import CardGrid from "@components/CardGrid.astro";
+import ProfilePhoto from "@components/ProfilePhoto.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import PublicationEntry from "@components/PublicationEntry.astro";
+import SocialLinks from "@components/SocialLinks.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { profile, publicLinks, researchInterests, site } from "@data/profile";
+import { projects } from "@data/projects";
+import { featuredPublications } from "@data/publications";
+import { service } from "@data/service";
+
+const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
+---
+
+<BaseLayout title={site.title} description={site.description}>
+  <section class="hero" aria-labelledby="home-title">
+    <div class="hero__content">
+      <p class="eyebrow">{profile.headline}</p>
+      <h1 id="home-title">{profile.displayName}</h1>
+      <p class="hero__intro">{profile.shortIntro}</p>
+      <div class="button-row">
+        <a class="button button--primary" href="/projects/">View projects</a>
+        <a class="button button--secondary" href="/research/">View research</a>
+      </div>
+      <SocialLinks links={publicLinks} compact />
+    </div>
+    <ProfilePhoto loading="eager" />
+  </section>
+
+  <section class="section section--compact" aria-labelledby="research-summary">
+    <div class="section-heading">
+      <p class="eyebrow">Research focus</p>
+      <h1 id="research-summary">Health data, statistical modelling, and AI</h1>
+      <p>
+        Research interests include statistical and machine learning methods for biostatistics,
+        epidemiology, public health, health disparities, and reproducible health-data analysis.
+      </p>
+    </div>
+    <ul class="tag-list">
+      {researchInterests.slice(0, 10).map((interest) => <li>{interest}</li>)}
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="featured-projects">
+    <div class="section-heading">
+      <p class="eyebrow">Selected public work</p>
+      <h1 id="featured-projects">Featured projects</h1>
+      <p>
+        Public GitHub repositories selected only where documentation supports an accurate,
+        privacy-safe description.
+      </p>
+    </div>
+    <CardGrid>
+      {featuredProjects.map((project) => <ProjectCard project={project} />)}
+    </CardGrid>
+  </section>
+
+  <section class="section" aria-labelledby="featured-publications">
+    <div class="section-heading">
+      <p class="eyebrow">Scholarly work</p>
+      <h1 id="featured-publications">Featured publications</h1>
+      <p>{profile.googleScholarNote}</p>
+    </div>
+    <div class="text-stack">
+      {featuredPublications.map((publication) => <PublicationEntry publication={publication} />)}
+    </div>
+    <div class="button-row" style="margin-top: 1.25rem;">
+      <a class="button button--primary" href="/publications/">View all scholarly work</a>
+      <a class="button button--secondary" href="https://scholar.google.com/citations?user=UhJLPxUAAAAJ&hl=en" target="_blank" rel="noreferrer">
+        View Google Scholar profile <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section section--compact" aria-labelledby="service-highlight">
+    <div class="section-heading">
+      <p class="eyebrow">Service</p>
+      <h1 id="service-highlight">Professional and volunteer service</h1>
+      <p>
+        Recent service includes student research evaluation and application-review contributions.
+      </p>
+    </div>
+    <CardGrid>
+      {
+        service.map((entry) => (
+          <article class="info-card">
+            <p class="eyebrow">{entry.period}</p>
+            <h2>{entry.title}</h2>
+            <p>{entry.organization}</p>
+            <p>{entry.description[0]}</p>
+          </article>
+        ))
+      }
+    </CardGrid>
+  </section>
+</BaseLayout>

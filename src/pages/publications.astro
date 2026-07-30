@@ -1,0 +1,53 @@
+---
+import PublicationEntry from "@components/PublicationEntry.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { profile } from "@data/profile";
+import { publications } from "@data/publications";
+import { groupBy } from "@utils/groupBy";
+
+const grouped = groupBy(publications, (publication) => publication.category);
+const sections = [
+  { key: "journal", title: "Selected Journal Articles" },
+  { key: "proceedings", title: "Conference Proceedings" },
+  { key: "preprint", title: "Preprints and Associated Manuscripts" },
+  { key: "presentation", title: "Presentations and Research Communications" },
+  { key: "thesis", title: "Theses and Academic Research Projects" }
+];
+---
+
+<BaseLayout
+  title="Publications"
+  description="Verified scholarly records for Christianah O. Jemiyo, organized by publication type and linked to public sources."
+>
+  <section class="section">
+    <SectionHeading
+      eyebrow="Publications"
+      title="Scholarly work"
+      text={profile.googleScholarNote}
+    />
+    <div class="button-row">
+      <a class="button button--primary" href="https://scholar.google.com/citations?user=UhJLPxUAAAAJ&hl=en" target="_blank" rel="noreferrer">
+        View complete profile on Google Scholar <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+
+  {
+    sections.map((section) =>
+      grouped[section.key]?.length ? (
+        <section class="section section--compact" aria-labelledby={`${section.key}-heading`}>
+          <div class="section-heading">
+            <p class="eyebrow">Scholarly records</p>
+            <h1 id={`${section.key}-heading`}>{section.title}</h1>
+          </div>
+          <div class="text-stack">
+            {grouped[section.key].map((publication) => (
+              <PublicationEntry publication={publication} />
+            ))}
+          </div>
+        </section>
+      ) : null
+    )
+  }
+</BaseLayout>

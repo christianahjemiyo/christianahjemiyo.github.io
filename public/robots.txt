@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://christianahjemiyo.github.io/sitemap.xml

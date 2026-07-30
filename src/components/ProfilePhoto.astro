@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+import profilePhoto from "../assets/profile-photo.jpg";
+
+type Props = {
+  size?: "hero" | "about";
+  loading?: "eager" | "lazy";
+};
+
+const { size = "hero", loading = "lazy" } = Astro.props;
+---
+
+<figure class:list={["profile-photo", `profile-photo--${size}`]}>
+  <Image
+    src={profilePhoto}
+    alt="Professional portrait of Christianah O. Jemiyo"
+    widths={[240, 360, 480, 640]}
+    sizes={size === "hero" ? "(min-width: 900px) 320px, 54vw" : "(min-width: 900px) 260px, 48vw"}
+    loading={loading}
+    decoding="async"
+    class="profile-photo__image"
+  />
+</figure>

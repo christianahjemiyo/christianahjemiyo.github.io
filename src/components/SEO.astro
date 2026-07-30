@@ -1,0 +1,45 @@
+---
+import { profile, publicLinks, researchInterests, site } from "@data/profile";
+
+type Props = {
+  title: string;
+  description?: string;
+  canonical?: string;
+};
+
+const { title, description = site.description, canonical = site.url } = Astro.props;
+const pageTitle = title === site.title ? site.title : `${title} | ${site.title}`;
+const ogUrl = new URL(site.ogImage, site.url).toString();
+const sameAs = publicLinks.map((link) => link.href);
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.displayName,
+  url: site.url,
+  jobTitle: [
+    "PhD student in Artificial Intelligence",
+    "Statistician",
+    "Health data researcher"
+  ],
+  affiliation: {
+    "@type": "CollegeOrUniversity",
+    name: "University of North Dakota"
+  },
+  knowsAbout: researchInterests,
+  sameAs
+};
+---
+
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogUrl} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />

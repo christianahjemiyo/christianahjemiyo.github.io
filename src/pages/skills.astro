@@ -1,0 +1,22 @@
+---
+import SkillGroup from "@components/SkillGroup.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { skillGroups } from "@data/skills";
+---
+
+<BaseLayout
+  title="Skills"
+  description="Technical and research skills for Christianah O. Jemiyo, organized without ratings or progress bars."
+>
+  <section class="section">
+    <SectionHeading
+      eyebrow="Skills"
+      title="Methods, tools, and research areas"
+      text="Skills are grouped by function and connected to approved professional experience where possible."
+    />
+    <div class="card-grid">
+      {skillGroups.map((group) => <SkillGroup group={group} />)}
+    </div>
+  </section>
+</BaseLayout>

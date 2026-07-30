@@ -1,0 +1,32 @@
+---
+import type { TimelineEntry } from "@data/types";
+
+type Props = {
+  entries: TimelineEntry[];
+};
+
+const { entries } = Astro.props;
+---
+
+<div class="timeline">
+  {
+    entries.map((entry) => (
+      <article class="timeline__item">
+        <div class="timeline__marker" aria-hidden="true"></div>
+        <div>
+          <p class="timeline__period">{entry.period}</p>
+          <h2>{entry.title}</h2>
+          <p class="timeline__organization">
+            {entry.organization}
+            {entry.location && <> · {entry.location}</>}
+          </p>
+          <ul>
+            {entry.description.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </article>
+    ))
+  }
+</div>

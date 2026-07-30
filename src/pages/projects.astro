@@ -1,0 +1,51 @@
+---
+import ProjectCard from "@components/ProjectCard.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { projects } from "@data/projects";
+
+const categories = ["All", ...Array.from(new Set(projects.map((project) => project.category)))];
+---
+
+<BaseLayout
+  title="Projects"
+  description="Selected public GitHub projects by Christianah O. Jemiyo, classified conservatively from public repository documentation."
+>
+  <section class="section">
+    <SectionHeading
+      eyebrow="Projects"
+      title="Public technical work"
+      text="Only public repositories with enough documentation for an accurate portfolio description are included."
+    />
+
+    <div class="filter-bar" role="group" aria-label="Filter projects by category">
+      {
+        categories.map((category, index) => (
+          <button type="button" data-filter={category} aria-pressed={index === 0 ? "true" : "false"}>
+            {category}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="card-grid" data-project-grid>
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <script is:inline>
+    const filterButtons = document.querySelectorAll("[data-filter]");
+    const projectCards = document.querySelectorAll("[data-project-card]");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.getAttribute("data-filter");
+        filterButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        projectCards.forEach((card) => {
+          const category = card.getAttribute("data-category");
+          card.hidden = filter !== "All" && category !== filter;
+        });
+      });
+    });
+  </script>
+</BaseLayout>

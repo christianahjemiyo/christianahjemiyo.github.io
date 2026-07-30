@@ -1,0 +1,30 @@
+---
+import SectionHeading from "@components/SectionHeading.astro";
+import Timeline from "@components/Timeline.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { memberships, service } from "@data/service";
+---
+
+<BaseLayout
+  title="Professional and Volunteer Service"
+  description="Professional service, volunteer service, and memberships for Christianah O. Jemiyo."
+>
+  <section class="section">
+    <SectionHeading
+      eyebrow="Service"
+      title="Professional and volunteer service"
+      text="Service entries are limited to user-approved roles and dates."
+    />
+    <Timeline entries={service} />
+  </section>
+
+  <section class="section section--compact" aria-labelledby="memberships-heading">
+    <div class="section-heading">
+      <p class="eyebrow">Memberships</p>
+      <h1 id="memberships-heading">Professional memberships</h1>
+    </div>
+    <ul class="tag-list">
+      {memberships.map((membership) => <li>{membership}</li>)}
+    </ul>
+  </section>
+</BaseLayout>

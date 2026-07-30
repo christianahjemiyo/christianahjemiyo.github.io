@@ -1,0 +1,62 @@
+---
+import SectionHeading from "@components/SectionHeading.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { publications } from "@data/publications";
+import { researchThemes } from "@data/research";
+
+const articleCount = publications.filter((publication) => publication.category === "journal").length;
+const proceedingsCount = publications.filter((publication) => publication.category === "proceedings").length;
+const projectCount = publications.filter((publication) => publication.category === "thesis").length;
+---
+
+<BaseLayout
+  title="Research"
+  description="Research interests in statistics, biostatistics, epidemiology, health disparities, AI, machine learning, and large health datasets."
+>
+  <section class="section">
+    <SectionHeading
+      eyebrow="Research"
+      title="Statistical and machine learning methods for health research"
+      text="My research connects statistical modelling, epidemiology, public health, health disparities, machine learning, and ethical analysis of large health datasets."
+    />
+    <div class="research-grid">
+      {
+        researchThemes.map((theme) => (
+          <article class="info-card">
+            <h2>{theme.title}</h2>
+            <p>{theme.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section--compact" aria-labelledby="research-outputs">
+    <div class="section-heading">
+      <p class="eyebrow">Outputs</p>
+      <h1 id="research-outputs">Scholarly work and projects</h1>
+      <p>
+        Publication records are classified conservatively and linked to publisher, repository, or
+        archival sources where available.
+      </p>
+    </div>
+    <ul class="stats-list">
+      <li>
+        <strong>{articleCount}</strong>
+        <p>Journal article records listed after verification.</p>
+      </li>
+      <li>
+        <strong>{proceedingsCount}</strong>
+        <p>Conference proceedings record listed separately from journal articles.</p>
+      </li>
+      <li>
+        <strong>{projectCount}</strong>
+        <p>Thesis or academic research project records listed where verified enough for public display.</p>
+      </li>
+    </ul>
+    <div class="button-row" style="margin-top: 1.25rem;">
+      <a class="button button--primary" href="/publications/">View publications</a>
+      <a class="button button--secondary" href="/projects/">View projects</a>
+    </div>
+  </section>
+</BaseLayout>
