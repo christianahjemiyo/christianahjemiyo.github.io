@@ -1,0 +1,32 @@
+{
+  "name": "christianahjemiyo.github.io",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "preview": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "typecheck": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "build": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check && cross-env ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint": "eslint .",
+    "validate:html": "html-validate \"dist/**/*.html\"",
+    "test": "node scripts/check-content.mjs",
+    "check:links": "node scripts/check-links.mjs",
+    "check:privacy": "node scripts/privacy-scan.mjs",
+    "check:all": "npm run lint && npm run format && npm run test && npm run build && npm run validate:html && npm run check:links && npm run check:privacy"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@eslint/js": "^10.0.1",
+    "astro": "^7.1.6",
+    "cross-env": "^10.1.0",
+    "eslint": "^10.8.0",
+    "html-validate": "^11.6.0",
+    "prettier": "^3.9.6",
+    "sharp": "^0.35.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.65.0"
+  }
+}
